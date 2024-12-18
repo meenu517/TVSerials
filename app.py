@@ -35,6 +35,11 @@ class LocalMemoryManager:
         data = self._load_data()
         return data.get(key, None)
 
+    def search_keys(self, search_term):
+        """Searches for keys containing the given search term."""
+        data = self._load_data()
+        return {k: v for k, v in data.items() if search_term in k}
+
     def delete(self, key):
         """Deletes a key-value pair from local memory."""
         data = self._load_data()
@@ -78,13 +83,14 @@ def main():
 
     with tab2:
         st.header("Retrieve Data")
-        retrieve_key = st.text_input("Enter Key to Retrieve")
-        if st.button("Get Data"):
-            result = memory.get(retrieve_key)
-            if result is not None:
-                st.success(f"Value for '{retrieve_key}': {result}")
+        search_term = st.text_input("Enter Search Term for Key")
+        if st.button("Search Keys"):
+            results = memory.search_keys(search_term)
+            if results:
+                df = pd.DataFrame(list(results.items()), columns=["Key", "Value"])
+                st.table(df)
             else:
-                st.error("Key not found!")
+                st.warning("No matching keys found!")
 
     with tab3:
         st.header("Manage Memory")
