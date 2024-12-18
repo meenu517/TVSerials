@@ -97,6 +97,18 @@ def main():
             else:
                 st.warning("No data found!")
 
+        edit_key = st.text_input("Enter Key to Edit")
+        new_value = st.text_input("Enter New Value", key="edit_value")
+        if st.button("Edit Key-Value"):
+            if edit_key and new_value:
+                if edit_key in memory.list_keys():
+                    memory.set(edit_key, new_value)
+                    st.success(f"Key '{edit_key}' updated with new value: {new_value}")
+                else:
+                    st.error("Key not found!")
+            else:
+                st.error("Both key and new value are required!")
+
         delete_key = st.text_input("Enter Key to Delete")
         if st.button("Delete Key"):
             memory.delete(delete_key)
