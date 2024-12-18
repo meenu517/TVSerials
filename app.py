@@ -65,6 +65,7 @@ memory = LocalMemoryManager()
 
 # Streamlit App
 def main():
+    st.set_page_config(page_title="Streamlit Local Memory Manager", page_icon="📺")
     st.title("Streamlit Local Memory Manager")
 
     # Tabs for navigation
