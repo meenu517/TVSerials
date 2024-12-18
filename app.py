@@ -38,7 +38,7 @@ class LocalMemoryManager:
     def search_keys(self, search_term):
         """Searches for keys containing the given search term."""
         data = self._load_data()
-        return {k: v for k, v in data.items() if search_term in k}
+        return {k: v for k, v in data.items() if search_term.lower() in k.lower()}
 
     def delete(self, key):
         """Deletes a key-value pair from local memory."""
